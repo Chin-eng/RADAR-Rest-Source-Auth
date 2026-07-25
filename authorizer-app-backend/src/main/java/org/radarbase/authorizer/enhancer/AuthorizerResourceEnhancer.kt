@@ -33,6 +33,7 @@ import org.radarbase.authorizer.service.DelegatedRestSourceAuthorizationService.
 import org.radarbase.authorizer.service.DelegatedRestSourceAuthorizationService.Companion.HUAWEI_AUTH
 import org.radarbase.authorizer.service.DelegatedRestSourceAuthorizationService.Companion.OURA_AUTH
 import org.radarbase.authorizer.service.DelegatedRestSourceAuthorizationService.Companion.DEXCOM_AUTH
+import org.radarbase.authorizer.service.DexcomAuthorizationService
 import org.radarbase.authorizer.service.GarminOAuth2AuthorizationService
 import org.radarbase.authorizer.service.GarminOauth1AuthorizationService
 import org.radarbase.authorizer.service.GoogleHealthAuthorizationService
@@ -138,7 +139,7 @@ class AuthorizerResourceEnhancer(
             .to(RestSourceAuthorizationService::class.java)
             .named(HUAWEI_AUTH)
 
-        bind(OAuth2RestSourceAuthorizationService::class.java)
+        bind(DexcomAuthorizationService::class.java)
             .to(RestSourceAuthorizationService::class.java)
             .named(DEXCOM_AUTH)
             .`in`(Singleton::class.java)
