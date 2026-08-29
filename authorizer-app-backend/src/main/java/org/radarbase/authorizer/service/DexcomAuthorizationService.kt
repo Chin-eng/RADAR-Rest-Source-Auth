@@ -15,10 +15,9 @@ import io.ktor.http.takeFrom
 import jakarta.ws.rs.core.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import org.radarbase.authorizer.api.RequestTokenPayload
 import org.radarbase.authorizer.api.RestOauth2AccessToken
+import org.radarbase.authorizer.api.RestOauth2UserId
 import org.radarbase.authorizer.config.AuthorizerConfig
 import org.radarbase.authorizer.doa.entity.RestSourceUser
 import org.radarbase.jersey.exception.HttpBadGatewayException
@@ -124,15 +123,10 @@ class DexcomAuthorizationService(
             )
         }
 
-        return response.body<DexcomDataRangeResponse>().userId
+        return response.body<RestOauth2UserId>().userId
     }
 
     companion object {
         private val logger = LoggerFactory.getLogger(DexcomAuthorizationService::class.java)
     }
-
-    @Serializable
-    private data class DexcomDataRangeResponse(
-        @SerialName("userId") val userId: String,
-    )
 }
