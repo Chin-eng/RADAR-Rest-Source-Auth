@@ -28,7 +28,8 @@ import org.slf4j.LoggerFactory
  * Dexcom OAuth2 authorization service.
  *
  * Dexcom requires client_id and client_secret as form parameters in the token
- * request rather than HTTP Basic authentication.
+ * request rather than HTTP Basic authentication. Dexcom does not expose a token
+ * revocation endpoint; users revoke access via Dexcom account settings.
  */
 class DexcomAuthorizationService(
     @Context private val clients: RestSourceClientService,
@@ -98,6 +99,11 @@ class DexcomAuthorizationService(
                 "Cannot connect to ${response.request.url} (HTTP status ${response.status}): ${response.bodyAsText()}",
             )
         }
+    }
+
+    override suspend fun revokeToken(user: RestSourceUser): Boolean {
+        logger.info("Token revocation not supported for Dexcom")
+        return false
     }
 
     private suspend fun getExternalId(accessToken: String, tokenEndpoint: String): String {
