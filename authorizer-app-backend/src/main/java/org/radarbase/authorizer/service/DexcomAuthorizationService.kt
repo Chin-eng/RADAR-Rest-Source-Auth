@@ -38,7 +38,6 @@ class DexcomAuthorizationService(
     override suspend fun requestAccessToken(
         payload: RequestTokenPayload,
         sourceType: String,
-        token: String?,
     ): RestOauth2AccessToken = withContext(Dispatchers.IO) {
         logger.info("Requesting Dexcom access token with authorization code")
         val authConfig = clients.forSourceType(sourceType)
