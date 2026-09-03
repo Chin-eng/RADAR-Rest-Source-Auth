@@ -101,7 +101,7 @@ class DexcomAuthorizationService(
     }
 
     override suspend fun revokeToken(user: RestSourceUser): Boolean {
-        logger.info("Token revocation not supported for Dexcom")
+        logger.error("Token revocation not supported for Dexcom")
         return false
     }
 
